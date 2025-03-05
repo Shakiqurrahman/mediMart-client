@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-type FormValues = {
+export type LoginValues = {
   email: string;
   password: string;
 };
@@ -13,10 +13,10 @@ const LoginForm = () => {
     register,
     handleSubmit,
     // formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<LoginValues>();
   const router = useRouter();
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: LoginValues) => {
     console.log(data);
     // try {
     //   const res = await loginUser(data);
