@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MediMart 💊 - Medicine E-Commerce Shop
 
-## Getting Started
+Welcome to **MediMart**, an online platform for purchasing medicines. This platform offers a seamless shopping experience with secure login, medicine browsing, prescription upload, and order tracking. The system is designed for both customers and admins, ensuring a secure, user-friendly interface and full compliance with prescription-based purchase regulations.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Key Features
+
+- **User Authentication**: JWT for secure login, bcrypt for password hashing.
+- **User Roles**: 
+  - **Customers**: Browse, add medicines to cart, place orders, track orders.
+  - **Admins**: Manage medicines, orders, and users.
+- **Medicine Listings & Search**: Search by name, category, or symptoms.
+- **Cart & Checkout**: Add/edit cart items, upload prescriptions, secure payment (Stripe/ShurjoPay).
+- **Order Management**: Customers can track orders; admins manage orders and prescriptions.
+- **Admin Dashboard**: Manage medicines, orders, users, and payments.
+
+---
+
+## Tech Stack
+
+### Frontend
+- **Next.js**: Server-side rendering and static site generation.
+- **TypeScript**: Type safety for enhanced maintainability.
+- **React**: For building dynamic user interfaces.
+- **Tailwind CSS**: A utility-first CSS framework for styling.
+
+### Backend
+- **Node.js with Express**: REST API to handle requests.
+- **MongoDB (Mongoose)**: For storing user, product, and order data.
+- **JWT**: For secure authentication.
+- **bcryptjs**: For password hashing.
+
+---
+
+## Routes
+
+### Customer Routes
+- **Home**: Featured medicines, search bar, reviews.
+- **Register/Login**: User authentication.
+- **Shop**: Medicine listings with filters and infinite scrolling.
+- **Medicine Details**: Detailed information and 'Add to Cart'.
+- **Cart & Checkout**: Modify cart, upload prescriptions, choose payment.
+- **Order History**: Track past orders.
+- **Profile**: Update personal details.
+
+### Admin Routes
+- **Admin Dashboard**: Overview of orders, stock, prescriptions.
+- **Manage Medicines**: Add, update, remove medicines.
+- **Manage Orders**: Approve/reject prescription orders, update statuses.
+- **Manage Users**: View customer details and order history.
+
+---
+
+## Setup Instructions
+
+### Prerequisites:
+- **Node.js** (v18.x or later)
+- **MongoDB** for database
+
+### Steps:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Shakiqurrahman/mediMart-client.git
+   cd medimart
+
+2. Install dependencies:
+
+```js
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<!-- 3. Set up environment variables:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```js
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+``` -->
 
-## Learn More
+#### Usage
 
-To learn more about Next.js, take a look at the following resources:
+- Run the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```js
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- build for production:
 
-## Deploy on Vercel
+```js
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Thank You
