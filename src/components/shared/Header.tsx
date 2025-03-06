@@ -28,13 +28,14 @@ const Header = () => {
   }, [isOpen]);
   return (
     <header className="max-width flex items-center justify-between h-24">
-      <div>
+      <Link href="/">
         <Image src={logo} alt="Medi Mart Logo" className="w-40" />
-      </div>
+      </Link>
       <div className="hidden md:flex items-center border border-blue-400 h-10 max-w-[300px] lg:max-w-[400px] w-full ">
         <input
           type="text"
           name="searchInput"
+          placeholder="Search here..."
           className="outline-none w-full  py-1 pl-4"
         />
         <button
