@@ -1,7 +1,19 @@
 .banner {
-    background: url("../../../assets/heroBanner.webp");
+  background: url("../../../assets/heroBanner.webp");
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    background: url("../../../assets/hero-md-device.webp");
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: darken;
   }
+}
