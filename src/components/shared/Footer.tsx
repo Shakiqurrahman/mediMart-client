@@ -1,7 +1,7 @@
 import logo from "@/assets/Medimart-logo.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import { BiCurrentLocation, BiLocationPlus } from "react-icons/bi";
+import { BiCurrentLocation } from "react-icons/bi";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoMdArrowDropright } from "react-icons/io";
