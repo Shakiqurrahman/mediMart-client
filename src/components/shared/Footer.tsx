@@ -10,7 +10,7 @@ import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-black pt-12 pb-3">
+    <footer className="bg-white text-black pt-12 pb-3 mt-32 border-t border-gray-100">
       <div className="max-width">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo & Short Description */}
@@ -106,7 +106,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-200 mt-12 pt-3 text-center text-gray-700 text-sm">
+        <div className="border-t border-gray-100 mt-12 pt-3 text-center text-gray-700 text-sm">
           © {new Date().getFullYear()} MediCare. All rights reserved.
         </div>
       </div>
