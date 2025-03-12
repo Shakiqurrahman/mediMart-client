@@ -1,8 +1,10 @@
 "use client";
 
+import { loginUser } from "@/services/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export type LoginValues = {
   email: string;
@@ -18,17 +20,18 @@ const LoginForm = () => {
 
   const onSubmit = async (data: LoginValues) => {
     console.log(data);
-    // try {
-    //   const res = await loginUser(data);
-    //   console.log(res);
-    //   if (res?.data?.accessToken) {
-    //     toast.success("Login successful");
-    //     localStorage.setItem("accessToken", res?.data?.accessToken);
+    try {
+      const res = await loginUser(data);
+      console.log(res);
+      if (res?.data?.accessToken) {
+        toast.success("Login successful");
+        localStorage.setItem("accessToken", res?.data?.accessToken);
     router.push("/");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    // }
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   return (
     <div className="max-width h-screen flex justify-center items-center">
