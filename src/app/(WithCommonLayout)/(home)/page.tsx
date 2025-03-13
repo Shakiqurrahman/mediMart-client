@@ -1,3 +1,4 @@
+import FeaturedProducts from "@/components/modules/home/featuredProducts/FeaturedProducts";
 import Hero from "@/components/modules/home/hero/Hero";
 import HeroFooter from "@/components/modules/home/hero/HeroFooter";
 import MedicalBanner from "@/components/modules/home/medicalBanner/MedicalBanner";
@@ -8,6 +9,7 @@ export default function Home() {
     <div>
       <Hero />
       <HeroFooter />
+      <FeaturedProducts />
       <MedicalBanner />
       <Testimonials />
     </div>
