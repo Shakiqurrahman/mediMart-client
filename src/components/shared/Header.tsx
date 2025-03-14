@@ -1,16 +1,22 @@
 "use client";
 
 import logo from "@/assets/Medimart-logo.jpg";
+import defaultAvatar from "@/assets/no-profile-picture.svg";
 import { navLinks } from "@/constants/navLinksData";
+import { useAppSelector } from "@/redux/hooks";
 import { Menu, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import DropdownProfile from "./DropdownProfile";
 
 const Header = () => {
   const pathname = usePathname();
+  const profileRef = useRef<HTMLDivElement>(null);
+  const [openProfile, setOpenProfile] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAppSelector((state) => state.user);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -26,6 +32,16 @@ const Header = () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!profileRef.current?.contains(e.target as Node))
+        setOpenProfile(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <header className="max-width flex items-center justify-between h-24">
       <Link href="/">
@@ -68,12 +84,29 @@ const Header = () => {
         </ul>
       </nav>
       <div className="flex items-center gap-2">
-        <Link
-          href={"/login"}
-          className="bg-blue-400 font-semibold text-white px-5 py-2.5 rounded-sm"
-        >
-          Login
-        </Link>
+        {user ? (
+          <div className="relative" ref={profileRef}>
+            <Image
+              onClick={() => setOpenProfile(!openProfile)}
+              className="flex-shrink-0 size-12 rounded-full bg-primary-300 object-center overflow-hidden  cursor-pointer"
+              src={user?.avatarUrl ? user?.avatarUrl : defaultAvatar}
+              alt={user?.name}
+            />
+            {openProfile && (
+              <DropdownProfile
+                close={() => setOpenProfile(false)}
+                user={user}
+              />
+            )}
+          </div>
+        ) : (
+          <Link
+            href={"/login"}
+            className="bg-blue-400 font-semibold text-white px-5 py-2.5 rounded-sm"
+          >
+            Login
+          </Link>
+        )}
         <button
           type="button"
           className="bg-blue-400 text-white p-1.5 rounded-sm block md:hidden"

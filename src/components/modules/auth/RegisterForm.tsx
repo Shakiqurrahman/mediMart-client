@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { setUser } from "@/redux/features/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { registerUser } from "@/services/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,12 +22,14 @@ const RegisterForm = () => {
   } = useForm<RegisterValues>();
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data: RegisterValues) => {
     try {
       const res = await registerUser(data);
       if (res.success) {
         toast.success("Registered successfully!");
+        dispatch(setUser(res?.data?.user));
         router.push("/");
       } else {
         toast.error(res.message);

@@ -1,5 +1,7 @@
 "use client";
 
+import { setUser } from "@/redux/features/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/services/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,13 +19,14 @@ const LoginForm = () => {
     // formState: { errors },
   } = useForm<LoginValues>();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data: LoginValues) => {
     try {
       const res = await loginUser(data);
       if (res?.success) {
         toast.success("Login successful");
-        localStorage.setItem("accessToken", res?.data?.accessToken);
+        dispatch(setUser(res?.data?.user));
         router.push("/");
       } else {
         toast.error(res.message);
