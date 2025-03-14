@@ -5,7 +5,7 @@ const FeaturedProducts = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/products`);
   const data = await res.json();
   return (
-    <section className="max-width my-16">
+    <section className="max-width mt-16 mb-28">
       <h1 className="text-3xl sm:text-4xl text-main font-bold text-center">
         Featured Medicines
       </h1>

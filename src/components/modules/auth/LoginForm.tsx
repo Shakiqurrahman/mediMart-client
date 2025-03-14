@@ -19,16 +19,16 @@ const LoginForm = () => {
   const router = useRouter();
 
   const onSubmit = async (data: LoginValues) => {
-    console.log(data);
     try {
       const res = await loginUser(data);
-      console.log(res);
-      if (res?.data?.accessToken) {
+      if (res?.success) {
         toast.success("Login successful");
         localStorage.setItem("accessToken", res?.data?.accessToken);
-    router.push("/");
+        router.push("/");
+      } else {
+        toast.error(res.message);
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(err.message);
     }

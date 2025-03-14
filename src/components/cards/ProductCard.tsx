@@ -7,10 +7,12 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       {product?.thumbnail && (
         <Image src={product?.thumbnail} alt={product.name} />
       )}
-      <h2>{product.name}</h2>
+      <h2 className="text-xl font-semibold">{product.name}</h2>
       <p>{product?.description}</p>
-      <p>Price: ${product.price}</p>
-      <button>Add to Cart</button>
+      <p className="text-2xl text-blue-400 mt-2">${product.price}</p>
+      <button className="bg-blue-400 px-6 py-2 text-white mt-5 w-full rounded-md font-semibold">
+        Add To Cart
+      </button>
     </div>
   );
 };

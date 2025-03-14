@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { registerUser } from "@/services/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export type RegisterValues = {
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -19,17 +22,17 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const onSubmit = async (data: RegisterValues) => {
-    console.log(data);
-    // try {
-    //   const res = await registerUser(data);
-    //   if (res.success) {
-    //     alert(res.message);
-    router.push("/login");
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    //   throw new Error(err.message);
-    // }
+    try {
+      const res = await registerUser(data);
+      if (res.success) {
+        toast.success("Registered successfully!");
+        router.push("/");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   return (
     <div className="max-width h-screen flex justify-center items-center">
@@ -44,8 +47,8 @@ const RegisterForm = () => {
             </label>
             <input
               type="text"
-              {...register("username")}
-              placeholder="User Name"
+              {...register("name")}
+              placeholder="Full Name"
               className="w-full px-4 py-2 border border-gray-300 rounded outline-none"
               required
             />

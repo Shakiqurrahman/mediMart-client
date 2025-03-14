@@ -4,6 +4,7 @@ export type TProduct = {
   description: string;
   price: number;
   quantity: number;
+  category : string;
   isStock: boolean;
   requiredPrescriptions: boolean;
   manufacturer: string;

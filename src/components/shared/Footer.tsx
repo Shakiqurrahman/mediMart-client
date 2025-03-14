@@ -107,7 +107,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="border-t border-gray-100 mt-12 pt-3 text-center text-gray-700 text-sm">
-          © {new Date().getFullYear()} MediCare. All rights reserved.
+          © {new Date().getFullYear()} Medi Mart. All rights reserved.
         </div>
       </div>
     </footer>

@@ -17,7 +17,7 @@ const Hero = () => {
         <p className="text-gray-200 mt-4">
           Your Trusted Online Pharmacy – Safe, Fast, and Affordable!
         </p>
-        <Link href={"/shop"}>
+        <Link href={"/shop"} className="inline-block">
           <button className="bg-white px-6 py-2.5 rounded-sm font-semibold uppercase mt-6 text-main flex items-center gap-1 group">
             Shop Now
             <ArrowRight className="size-5 group-hover:translate-x-2 duration-300" />

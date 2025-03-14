@@ -10,7 +10,7 @@ const HeroFooter = () => {
           <PiAmbulanceFill className="size-12 " />
           <div>
             <h3 className="text-xl font-semibold">Free Shipping</h3>
-            <p>For orders over $50</p>
+            <p>Get your medicines delivered for free!</p>
           </div>
         </div>
         <div className="flex items-center gap-4 sm:gap-6">
