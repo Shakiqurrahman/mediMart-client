@@ -1,11 +1,34 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "./features/userSlice";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
+import userReducer from "./features/userSlice";
+import storage from "./storage";
 
+const persistOptions = {
+  key: "cart",
+  storage,
+};
+
+const persistedUser = persistReducer(persistOptions, userReducer);
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      user: userSlice,
+      user: persistedUser,
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    middleware: (getDefaultMiddlewares: any) =>
+      getDefaultMiddlewares({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }).concat(),
   });
 };
 

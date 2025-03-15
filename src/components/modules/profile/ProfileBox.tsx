@@ -8,7 +8,9 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineMail, AiOutlinePicture } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
+import { MdOutlineLocalPhone } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { SlLocationPin } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import ChangePassword from "./ChangePassword";
 
@@ -24,10 +26,12 @@ const ProfileBox = ({ data }: { data: IUser }) => {
     email: data?.email || "",
     password: "",
     avatar: data?.avatarUrl || "",
+    phone: data?.phone || "",
+    address: data?.address || "",
   });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];    
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
 
@@ -53,7 +57,9 @@ const ProfileBox = ({ data }: { data: IUser }) => {
       const isFormModified =
         form.name !== initialForm.name ||
         form.email !== initialForm.email ||
-        form.avatar !== initialForm.avatar;
+        form.avatar !== initialForm.avatar ||
+        form.phone !== initialForm.phone ||
+        form.address !== initialForm.address;
 
       setIsModified(isFormModified);
     }
@@ -66,7 +72,7 @@ const ProfileBox = ({ data }: { data: IUser }) => {
       ...prevForm,
       [name]: value,
     }));
-  };  
+  };
 
   const handleUpdateForm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +103,7 @@ const ProfileBox = ({ data }: { data: IUser }) => {
 
   const handleCancel = () => {
     setForm(initialForm);
-  };  
+  };
   return (
     <section className="max-w-[1280px] mx-auto mt-10">
       <div className="bg-white rounded-2xl px-4 py-8 sm:p-10">
@@ -172,6 +178,34 @@ const ProfileBox = ({ data }: { data: IUser }) => {
                   onChange={handleInputChange}
                   placeholder="Email Address"
                   className="border outline-none px-4 py-2.5 focus:border-primary duration-300 rounded-lg mt-2 w-full text-sm disabled:cursor-not-allowed"
+                />
+              </div>
+              <div className="mt-5">
+                <p className="flex items-center gap-2">
+                  <MdOutlineLocalPhone className="text-lg" />
+                  Phone Number
+                </p>
+                <input
+                  type="text"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleInputChange}
+                  placeholder="Phone Number"
+                  className="border outline-none px-4 py-2.5 focus:border-primary duration-300 rounded-lg mt-2 w-full text-sm"
+                />
+              </div>
+              <div className="mt-5">
+                <p className="flex items-center gap-2">
+                  <SlLocationPin className="text-lg" />
+                  Address
+                </p>
+                <input
+                  type="text"
+                  name="address"
+                  value={form.address}
+                  onChange={handleInputChange}
+                  placeholder="Address"
+                  className="border outline-none px-4 py-2.5 focus:border-primary duration-300 rounded-lg mt-2 w-full text-sm"
                 />
               </div>
               <div className="mt-5 flex flex-wrap items-center gap-4">
