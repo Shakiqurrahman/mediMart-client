@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { getProjectById, updateProject } from "@/utils/actions/projectActions";
-import { useParams, useRouter } from "next/navigation";
+// import { getProjectById, updateProject } from "@/utils/actions/projectActions";
+import { useParams } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface IFormData {
@@ -15,7 +15,7 @@ interface IFormData {
 
 const UpdateprojectPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
   const { projectId } = useParams();
   const [formData, setFormData] = useState<IFormData>({
     name: "",
@@ -29,23 +29,23 @@ const UpdateprojectPage = () => {
     if (!projectId) return;
     const fetchBlog = async (projectId: string) => {
       setIsLoading(true);
-      try {
-        const data = await getProjectById(projectId);
-        // Update form data with the fetched blog data
-        if (data) {
-          setFormData({
-            name: data.name || "",
-            description: data?.description || "",
-            githubLink: data?.githubLink || "",
-            liveLink: data?.liveLink || "",
-            thumbnail: data?.thumbnail || "",
-          });
-        }
-      } catch (error) {
-        console.error("Failed to fetch blog data", error);
-      } finally {
-        setIsLoading(false);
-      }
+      // try {
+      //   const data = await getProjectById(projectId);
+      //   // Update form data with the fetched blog data
+      //   if (data) {
+      //     setFormData({
+      //       name: data.name || "",
+      //       description: data?.description || "",
+      //       githubLink: data?.githubLink || "",
+      //       liveLink: data?.liveLink || "",
+      //       thumbnail: data?.thumbnail || "",
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.error("Failed to fetch blog data", error);
+      // } finally {
+      //   setIsLoading(false);
+      // }
     };
 
     fetchBlog(projectId as string);
@@ -60,20 +60,20 @@ const UpdateprojectPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const res = await updateProject(projectId as string, formData);
-      if (!res) {
-        toast.error("Failed to update project");
-        return;
-      }
-      if (res?.success) {
-        toast.success("Project updated successfully!");
-        router.push("/dashboard/project-management");
-      }
-    } catch (error) {
-      console.error("Error submitting blog:", error);
-      toast.error("Failed to update project");
-    }
+    // try {
+    //   const res = await updateProject(projectId as string, formData);
+    //   if (!res) {
+    //     toast.error("Failed to update project");
+    //     return;
+    //   }
+    //   if (res?.success) {
+    //     toast.success("Project updated successfully!");
+    //     router.push("/dashboard/project-management");
+    //   }
+    // } catch (error) {
+    //   console.error("Error submitting blog:", error);
+    //   toast.error("Failed to update project");
+    // }
   };
 
   return (
