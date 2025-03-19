@@ -19,10 +19,10 @@ const DropdownProfile = ({ close, user }: DropdownProfileProps) => {
     close();
     dispatch(logoutUser());
     toast.success("Logout Successfully");
-    router.push("/sign-in");
+    router.push("/login");
   };
   return (
-    <div className="shadow-xl mt-3 py-2 bg-white text-black absolute top-full -right-2 rounded-lg border border-gray-300 before:absolute before:top-[-0.5rem] before:right-[1.5rem] before:size-4 before:bg-white before:rotate-[45deg] before:border-l before:border-t before:border-l-gray-300 before:border-t-gray-300 text-sm sm:text-base text-nowrap flex flex-col items-start">
+    <div className="shadow-xl mt-3 py-2 bg-white text-black absolute top-full -right-2 rounded-lg border border-gray-300 before:absolute before:top-[-0.5rem] before:right-[1.5rem] before:size-4 before:bg-white before:rotate-[45deg] before:border-l before:border-t before:border-l-gray-300 before:border-t-gray-300 text-sm sm:text-base text-nowrap flex flex-col items-start z-[99999999]">
       <Link
         href="/me"
         onClick={close}
@@ -33,7 +33,7 @@ const DropdownProfile = ({ close, user }: DropdownProfileProps) => {
       </Link>
       {user?.role === "admin" ? (
         <Link
-          href="/dashboard"
+          href="/admin"
           onClick={close}
           className="flex gap-2 items-center px-4 py-2 hover:bg-body duration-300"
         >

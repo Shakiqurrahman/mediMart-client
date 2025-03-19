@@ -12,9 +12,9 @@ export const getCurrentUser = async () => {
       },
     });
 
-    const data = await res.json();
+    const data = await res.json();    
     return data;
   } catch (error: any) {
-    return Error(error.message);
+    return Error(error.message);    
   }
 };
