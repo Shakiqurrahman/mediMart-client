@@ -91,6 +91,7 @@ const Header = () => {
               className="flex-shrink-0 size-12 rounded-full bg-primary-300 object-center overflow-hidden  cursor-pointer"
               src={user?.avatarUrl ? user?.avatarUrl : defaultAvatar}
               alt={user?.name}
+              width={200} height={200}
             />
             {openProfile && (
               <DropdownProfile

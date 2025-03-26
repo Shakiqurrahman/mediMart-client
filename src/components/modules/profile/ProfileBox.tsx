@@ -2,6 +2,7 @@
 
 import defaultAvatar from "@/assets/no-profile-picture.svg";
 import { setUser } from "@/redux/features/userSlice";
+import { updateProfile } from "@/services/user";
 import { IUser } from "@/types/userType";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -12,11 +13,11 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { SlLocationPin } from "react-icons/sl";
 import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 import ChangePassword from "./ChangePassword";
 
 const ProfileBox = ({ data }: { data: IUser }) => {
   const dispatch = useDispatch();
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Initialize form with fetched user data
@@ -41,6 +42,7 @@ const ProfileBox = ({ data }: { data: IUser }) => {
       reader.readAsDataURL(file);
     }
   };
+  
 
   const [form, setForm] = useState(initialForm);
   const [isModified, setIsModified] = useState(false);
@@ -79,19 +81,25 @@ const ProfileBox = ({ data }: { data: IUser }) => {
 
     const formData = new FormData();
     formData.append("name", form.name);
+    formData.append("phone", form.phone);
+    formData.append("address", form.address);
     if (fileInputRef.current?.files?.[0]) {
-      formData.append("avatar", fileInputRef.current.files[0]);
+      formData.append("imageUrl", fileInputRef.current.files[0]);
     } else {
-      formData.append("avatar", form.avatar);
+      formData.append("imageUrl", form.avatar);
     }
 
-    // try {
-    //   await updateProfile(formData).unwrap();
-    //   toast.success("Profile updated successfully");
-    // } catch (err) {
-    //   console.error("Update failed:", err);
-    //   toast.error("Failed to update profile");
-    // }
+    try {
+      const res = await updateProfile(formData);
+      if (res?.success) {
+        toast.success("Profile updated successfully");
+      } else {
+        toast.error("Failed to update profile");
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+      toast.error("Failed to update profile");
+    }
   };
 
   const handleRemoveFile = () => {
@@ -117,7 +125,7 @@ const ProfileBox = ({ data }: { data: IUser }) => {
               <Image
                 className="size-24 rounded-full border border-gray-200 shadow sm:size-28 object-cover"
                 src={form?.avatar || defaultAvatar}
-                alt=""
+                alt="Avatar Image"
                 width={400}
                 height={400}
               />
