@@ -1,6 +1,6 @@
-const page = () => {
+const OrderManagement = () => {
   return (
-    <div className="m-4 sm:m-8">
+    <div className="m-4 mt-16 lg:m-8">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-blackish">Manage Orders</h2>
@@ -125,4 +125,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OrderManagement;
