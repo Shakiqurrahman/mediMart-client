@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOutIcon, MessageSquare } from "lucide-react";
+import { LogOutIcon, User2Icon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { CgClose } from "react-icons/cg";
@@ -72,12 +72,12 @@ const Sidebar = ({ toggleSidebar }: ISidebarProps) => {
         <li>
           <Link
             onClick={toggleSidebar}
-            href="/admin/user-messages"
+            href="/admin/user-management"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
               pathname === "/admin/user-management" ? "bg-gray-200" : ""
             }`}
           >
-            <MessageSquare className="h-5 w-5" />
+            <User2Icon className="h-5 w-5" />
             <span>User Management</span>
           </Link>
         </li>
