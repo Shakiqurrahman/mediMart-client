@@ -50,7 +50,7 @@ const Sidebar = ({ toggleSidebar }: ISidebarProps) => {
             onClick={toggleSidebar}
             href="/admin/product-management"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
-              pathname === "/admin/blog-management" ? "bg-gray-200" : ""
+              pathname === "/admin/product-management" ? "bg-gray-200" : ""
             }`}
           >
             <TbLogs className="h-5 w-5" />
@@ -62,7 +62,7 @@ const Sidebar = ({ toggleSidebar }: ISidebarProps) => {
             onClick={toggleSidebar}
             href="/admin/order-management"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
-              pathname === "/admin/project-management" ? "bg-gray-200" : ""
+              pathname === "/admin/order-management" ? "bg-gray-200" : ""
             }`}
           >
             <GoProject className="h-5 w-5" />

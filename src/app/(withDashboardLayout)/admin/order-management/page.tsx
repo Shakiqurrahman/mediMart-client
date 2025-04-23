@@ -3,7 +3,7 @@ const OrderManagement = () => {
     <div className="m-4 mt-16 lg:m-8">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-blackish">Manage Orders</h2>
+          <h2 className="text-lg font-semibold">Manage Orders</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">

@@ -35,7 +35,7 @@ const ProductLeft = () => {
 
         {/* Price Filter */}
         <div className="mb-5">
-          <h2 className="text-xl text-blackish font-semibold pb-3 mb-4 border-b border-gray-200">
+          <h2 className="text-xl font-semibold pb-3 mb-4 border-b border-gray-200">
             Filter by price
           </h2>
           {/* <Slider

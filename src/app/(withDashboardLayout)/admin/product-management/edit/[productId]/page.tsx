@@ -1,21 +1,16 @@
 "use client";
-// import { addProject } from "@/utils/actions/projectActions";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { getSingleProduct } from "@/services/products";
+import { useParams, useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 import { toast } from "sonner";
+import { IFormData } from "../../../add-medicine/page";
 
-export interface IFormData {
-  name: string;
-  thumbnail: string;
-  description: string;
-  price: number | string;
-  quantity: number | string;
-  category: string;
-  requiredPrescriptions: boolean;
-  manufacturer: string;
-  expiryDate?: string;
-}
-
-const AddProjectPage = () => {
+const ProductEditPage = () => {
+  const { productId } = useParams();
+  const router = useRouter();
+  console.log("🚀 ~ ProductEditPage ~ productId:", productId);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     thumbnail: "",
@@ -27,6 +22,37 @@ const AddProjectPage = () => {
     manufacturer: "",
     expiryDate: "",
   });
+
+  useEffect(() => {
+    if (!productId) return;
+    const fetchBlog = async (id: string) => {
+      setIsLoading(true);
+      try {
+        const response = await getSingleProduct(id);
+        if (!response?.success) {
+          router.push("/admin/product-management");
+        }
+        const { data } = response || {};
+        setFormData({
+          name: data.name || "",
+          description: data.description || "",
+          price: data.price || "",
+          quantity: data.quantity || "",
+          category: data.category || "",
+          thumbnail: data.thumbnail || "",
+          manufacturer: data.manufacturer || "",
+          expiryDate: data.expiryDate || "",
+          requiredPrescriptions: data.requiredPrescriptions || false,
+        });
+      } catch (error) {
+        console.error("Failed to fetch blog data", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlog(productId as string);
+  }, [productId]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,9 +102,13 @@ const AddProjectPage = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <div className="flex justify-center items-center min-h-screen">
+      <CgSpinner size={40} className="animate-spin" />
+    </div>
+  ) : (
     <section className="px-4 lg:px-10 my-16">
-      <h1 className="text-2xl text-center font-semibold">Add Medicine</h1>
+      <h1 className="text-2xl text-center font-semibold">Edit Medicine</h1>
       <form className="mt-8" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -250,4 +280,4 @@ const AddProjectPage = () => {
   );
 };
 
-export default AddProjectPage;
+export default ProductEditPage;
