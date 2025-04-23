@@ -1,4 +1,9 @@
-const UserManagement = () => {
+import { getAllUsers } from "@/services/user";
+
+const UserManagement = async () => {
+  const res = await getAllUsers();
+  console.log("🚀 ~ UserManagement ~ res:", res);
+
   return (
     <section className="m-4 mt-16 lg:m-8">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">

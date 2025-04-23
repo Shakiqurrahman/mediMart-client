@@ -6,8 +6,8 @@ import { TProduct } from "@/types/productType";
 const ShopPage = async () => {
   const { data: products } = await getAllProducts();
   return (
-    <div className="mt-10 sm:mt-20 max-width flex flex-col md:flex-row items-start gap-4">
-      <div className="w-full md:w-[400px] sticky top-16">
+    <div className="mt-10 md:mt-20 max-width flex flex-col md:flex-row items-start gap-4">
+      <div className="w-full md:w-[400px] md:sticky md:top-16">
         <ProductLeft />
       </div>
       <div className="flex-1 grid gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 relative">
