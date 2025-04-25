@@ -9,7 +9,7 @@ const ProductManagementPage = async () => {
     <div className="m-4 mt-16 lg:m-8">
       <div className="flex items-center gap-2 justify-between border-b pb-3 border-dashed border-b-gray-400">
         <h1 className="text-2xl font-semibold">All Medicines</h1>
-        <Link href={"/admin/add-medicine"}>
+        <Link href={"/admin/medicines/add"}>
           <button className="bg-blue-400 text-white font-medium px-5 py-2.5 rounded-full">
             Add Medicine
           </button>

@@ -48,37 +48,37 @@ const Sidebar = ({ toggleSidebar }: ISidebarProps) => {
         <li>
           <Link
             onClick={toggleSidebar}
-            href="/admin/product-management"
+            href="/admin/medicines"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
-              pathname === "/admin/product-management" ? "bg-gray-200" : ""
+              pathname === "/admin/medicines" ? "bg-gray-200" : ""
             }`}
           >
             <TbLogs className="h-5 w-5" />
-            <span>Product Management</span>
+            <span>Medicines</span>
           </Link>
         </li>
         <li>
           <Link
             onClick={toggleSidebar}
-            href="/admin/order-management"
+            href="/admin/orders"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
-              pathname === "/admin/order-management" ? "bg-gray-200" : ""
+              pathname === "/admin/orders" ? "bg-gray-200" : ""
             }`}
           >
             <GoProject className="h-5 w-5" />
-            <span>Order Management</span>
+            <span>Orders</span>
           </Link>
         </li>
         <li>
           <Link
             onClick={toggleSidebar}
-            href="/admin/user-management"
+            href="/admin/users"
             className={`flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700 duration-300 ${
-              pathname === "/admin/user-management" ? "bg-gray-200" : ""
+              pathname === "/admin/users" ? "bg-gray-200" : ""
             }`}
           >
             <User2Icon className="h-5 w-5" />
-            <span>User Management</span>
+            <span>Users</span>
           </Link>
         </li>
       </ul>

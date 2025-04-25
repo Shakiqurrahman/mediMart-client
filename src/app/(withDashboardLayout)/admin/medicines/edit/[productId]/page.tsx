@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "sonner";
-import { IFormData } from "../../../add-medicine/page";
+import { IFormData } from "../../add/page";
 
 const ProductEditPage = () => {
   const { productId } = useParams();
