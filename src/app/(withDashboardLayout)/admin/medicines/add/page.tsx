@@ -1,5 +1,6 @@
 "use client";
-// import { addProject } from "@/utils/actions/projectActions";
+import { addProduct } from "@/services/products/index";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,6 +17,8 @@ export interface IFormData {
 }
 
 const AddProjectPage = () => {
+  const [isCreating, setIsCreating] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     thumbnail: "",
@@ -50,29 +53,37 @@ const AddProjectPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsCreating(true);
+
+    const submittedData = new FormData();
+    submittedData.append("name", formData.name);
+    submittedData.append("thumbnail", formData.thumbnail);
+    submittedData.append("description", formData.description);
+    submittedData.append("price", String(formData.price));
+    submittedData.append("quantity", String(formData.quantity));
+    submittedData.append("category", formData.category);
+    submittedData.append(
+      "requiredPrescriptions",
+      String(formData.requiredPrescriptions)
+    );
+    submittedData.append("manufacturer", formData.manufacturer);
+    if (formData.expiryDate) {
+      submittedData.append("expiryDate", formData.expiryDate);
+    }
+
     try {
-      // const res = await addProject(formData);
-
-      // if (!res) {
-      //   toast.error("Failed to add project");
-      // }
-
-      toast.success("Project added successfully!");
-
-      setFormData({
-        name: "",
-        thumbnail: "",
-        description: "",
-        price: "",
-        quantity: "",
-        category: "",
-        requiredPrescriptions: false,
-        manufacturer: "",
-        expiryDate: "",
-      });
+      const res = await addProduct(submittedData);
+      if (res?.success) {
+        toast.success("Medicine added successfully!");
+        router.push("/admin/medicines");
+      } else {
+        toast.error("Failed to add medicine");
+      }
     } catch (error) {
       console.error("Error submitting marketplace project:", error);
-      toast.error("Failed to add project");
+      toast.error("Failed to add medicine");
+    } finally {
+      setIsCreating(false);
     }
   };
 
@@ -241,7 +252,8 @@ const AddProjectPage = () => {
 
         <button
           type="submit"
-          className="mt-6 px-8 py-2.5 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300"
+          disabled={isCreating}
+          className="mt-6 px-8 py-2.5 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
         >
           Submit
         </button>

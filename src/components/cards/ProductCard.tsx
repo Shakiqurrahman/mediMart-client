@@ -9,7 +9,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         <Image src={product?.thumbnail} alt={product.name} />
       )}
       <h2 className="text-xl font-semibold">{product.name}</h2>
-      <p>{product?.description}</p>
+      <p className="line-clamp-2">{product?.description}</p>
       <p className="text-2xl text-blue-400 mt-2 font-semibold">
         ${product.price}
       </p>

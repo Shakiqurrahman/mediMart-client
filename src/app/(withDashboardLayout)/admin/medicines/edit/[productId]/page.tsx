@@ -1,5 +1,5 @@
 "use client";
-import { getSingleProduct } from "@/services/products";
+import { getSingleProduct, updateProduct } from "@/services/products";
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
@@ -9,8 +9,8 @@ import { IFormData } from "../../add/page";
 const ProductEditPage = () => {
   const { productId } = useParams();
   const router = useRouter();
-  console.log("🚀 ~ ProductEditPage ~ productId:", productId);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     thumbnail: "",
@@ -75,30 +75,39 @@ const ProductEditPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!productId) return;
+
+    setIsUpdating(true);
+
+    const submittedData = new FormData();
+    submittedData.append("name", formData.name);
+    submittedData.append("thumbnail", formData.thumbnail);
+    submittedData.append("description", formData.description);
+    submittedData.append("price", String(formData.price));
+    submittedData.append("quantity", String(formData.quantity));
+    submittedData.append("category", formData.category);
+    submittedData.append(
+      "requiredPrescriptions",
+      String(formData.requiredPrescriptions)
+    );
+    submittedData.append("manufacturer", formData.manufacturer);
+    if (formData.expiryDate) {
+      submittedData.append("expiryDate", formData.expiryDate);
+    }
 
     try {
-      // const res = await addProject(formData);
-
-      // if (!res) {
-      //   toast.error("Failed to add project");
-      // }
-
-      toast.success("Project added successfully!");
-
-      setFormData({
-        name: "",
-        thumbnail: "",
-        description: "",
-        price: "",
-        quantity: "",
-        category: "",
-        requiredPrescriptions: false,
-        manufacturer: "",
-        expiryDate: "",
-      });
+      const res = await updateProduct(submittedData, productId as string);
+      if (res?.success) {
+        toast.success("Medicine updated successfully!");
+        router.push("/admin/medicines");
+      } else {
+        toast.error("Failed to update project");
+      }
     } catch (error) {
       console.error("Error submitting marketplace project:", error);
-      toast.error("Failed to add project");
+      toast.error("Failed to update project");
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -271,7 +280,8 @@ const ProductEditPage = () => {
 
         <button
           type="submit"
-          className="mt-6 px-8 py-2.5 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300"
+          disabled={isUpdating}
+          className="mt-6 px-8 py-2.5 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
         >
           Submit
         </button>
