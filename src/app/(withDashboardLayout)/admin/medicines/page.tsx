@@ -1,4 +1,4 @@
-import ProductCard from "@/components/cards/ProductCard";
+import ProductAdminCard from "@/components/cards/ProductAdminCard";
 import { getAllProducts } from "@/services/products";
 import { TProduct } from "@/types/productType";
 import Link from "next/link";
@@ -15,10 +15,10 @@ const ProductManagementPage = async () => {
           </button>
         </Link>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 relative mt-10">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 relative mt-10">
         {products?.length > 0 ? (
           products?.map((product: TProduct) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductAdminCard key={product._id} product={product} />
           ))
         ) : (
           <p className="text-center text-gray-500 col-span-full mt-10">

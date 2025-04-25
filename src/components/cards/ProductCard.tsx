@@ -4,15 +4,17 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: TProduct }) => {
   return (
-    <div className="bg-[#f7f7f7] p-8 rounded-lg">
+    <div className="bg-[#f7f7f7] p-8 rounded-[15px]">
       {product?.thumbnail && (
         <Image src={product?.thumbnail} alt={product.name} />
       )}
       <h2 className="text-xl font-semibold">{product.name}</h2>
       <p>{product?.description}</p>
-      <p className="text-2xl text-blue-400 mt-2">${product.price}</p>
+      <p className="text-2xl text-blue-400 mt-2 font-semibold">
+        ${product.price}
+      </p>
       <div className="flex flex-col gap-2">
-        <button className="bg-blue-400 px-6 py-2 text-white mt-5 w-full rounded-md font-semibold">
+        <button className="bg-blue-900 px-6 py-2 text-white mt-5 w-full rounded-md font-semibold">
           Add To Cart
         </button>
         <Link href={`/medicine/${product?._id}`}>
