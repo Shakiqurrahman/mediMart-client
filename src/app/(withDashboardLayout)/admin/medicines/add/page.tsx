@@ -1,12 +1,14 @@
 "use client";
 import { addProduct } from "@/services/products/index";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast } from "sonner";
 
 export interface IFormData {
   name: string;
-  thumbnail: string;
+  thumbnail: string | File;
   description: string;
   price: number | string;
   quantity: number | string;
@@ -14,14 +16,17 @@ export interface IFormData {
   requiredPrescriptions: boolean;
   manufacturer: string;
   expiryDate?: string;
+  imagePreview: string | null;
 }
 
 const AddProjectPage = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     thumbnail: "",
+    imagePreview: "",
     description: "",
     price: "",
     quantity: "",
@@ -50,14 +55,35 @@ const AddProjectPage = () => {
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData((prev) => ({
+        ...prev,
+        thumbnail: file,
+        imagePreview: URL.createObjectURL(file),
+      }));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      thumbnail: "",
+      imagePreview: "",
+    }));
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setIsCreating(true);
-
     const submittedData = new FormData();
     submittedData.append("name", formData.name);
-    submittedData.append("thumbnail", formData.thumbnail);
     submittedData.append("description", formData.description);
     submittedData.append("price", String(formData.price));
     submittedData.append("quantity", String(formData.quantity));
@@ -67,6 +93,9 @@ const AddProjectPage = () => {
       String(formData.requiredPrescriptions)
     );
     submittedData.append("manufacturer", formData.manufacturer);
+    if (formData.thumbnail) {
+      submittedData.append("imageUrl", formData.thumbnail);
+    }
     if (formData.expiryDate) {
       submittedData.append("expiryDate", formData.expiryDate);
     }
@@ -91,40 +120,54 @@ const AddProjectPage = () => {
     <section className="px-4 lg:px-10 my-16">
       <h1 className="text-2xl text-center font-semibold">Add Medicine</h1>
       <form className="mt-8" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-base font-medium text-gray-700"
-            >
-              Medicine Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              className="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3 outline-none"
-            />
-          </div>
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-base font-medium text-gray-700"
+          >
+            Medicine Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+            className="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3 outline-none"
+          />
+        </div>
 
-          <div>
-            <label
-              htmlFor="thumbnail"
-              className="block text-base font-medium text-gray-700"
-            >
-              Thumbnail URL
-            </label>
-            <input
-              id="thumbnail"
-              name="thumbnail"
-              type="url"
-              value={formData.thumbnail}
-              onChange={handleChange}
-              className="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3 outline-none"
-            />
-          </div>
+        <div className="mt-4">
+          <label className="block text-sm font-medium text-gray-600 mb-2">
+            Upload Image
+          </label>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="block w-full text-sm text-gray-400 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none py-2.5 px-3"
+            onChange={handleImageChange}
+          />
+
+          {/* Image Preview */}
+          {formData.imagePreview && (
+            <div className="mt-3 flex items-center gap-4 relative">
+              <Image
+                src={formData.imagePreview}
+                alt="Preview"
+                width={150}
+                height={150}
+                className="w-40 rounded-lg border border-gray-300"
+              />
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="bg-primary text-white font-medium text-lg p-3 rounded-full hover:bg-primary/80 transition absolute top-2 left-2"
+              >
+                <RiDeleteBin6Line />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="mt-4">

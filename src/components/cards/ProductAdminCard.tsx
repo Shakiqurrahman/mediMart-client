@@ -20,18 +20,23 @@ const ProductAdminCard = ({ product }: { product: TProduct }) => {
       toast.error("Failed to delete");
     }
   };
+
   return (
-    <div className="bg-white p-8 rounded-2xl drop-shadow-md">
+    <div className="bg-white p-5 rounded-2xl drop-shadow-md">
       {product?.thumbnail ? (
         <Image
-          src={img}
+          src={product?.thumbnail}
           alt={product?.thumbnail}
+          width={200}
+          height={200}
           className="max-h-[200px] object-cover"
         />
       ) : (
         <Image
           src={img}
           alt={product.name}
+          width={200}
+          height={200}
           className="max-h-[200px] object-cover"
         />
       )}

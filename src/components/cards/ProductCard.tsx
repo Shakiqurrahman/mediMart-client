@@ -4,9 +4,15 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: TProduct }) => {
   return (
-    <div className="bg-[#f7f7f7] p-8 rounded-[15px]">
+    <div className="bg-[#f7f7f7] p-5 rounded-[15px]">
       {product?.thumbnail && (
-        <Image src={product?.thumbnail} alt={product.name} />
+        <Image
+          src={product?.thumbnail}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full max-h-[200px] object-cover rounded-tl-[15px] rounded-tr-[15px] overflow-hidden"
+        />
       )}
       <h2 className="text-xl font-semibold">{product.name}</h2>
       <p className="line-clamp-2">{product?.description}</p>
