@@ -9,6 +9,7 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import userReducer from "./features/userSlice";
+import cartReducer from "./features/cartSlice";
 import storage from "./storage";
 
 const persistOptions = {
@@ -21,6 +22,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       user: persistedUser,
+      cart : cartReducer,
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     middleware: (getDefaultMiddlewares: any) =>

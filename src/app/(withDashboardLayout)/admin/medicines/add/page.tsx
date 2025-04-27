@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast } from "sonner";
 
-export interface IFormData {
+export interface IMedicineData {
   name: string;
   thumbnail: string | File;
   description: string;
@@ -23,7 +23,7 @@ const AddProjectPage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const router = useRouter();
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<IMedicineData>({
     name: "",
     thumbnail: "",
     imagePreview: "",

@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast } from "sonner";
-import { IFormData } from "../../add/page";
+import { IMedicineData } from "../../add/page";
 
 const ProductEditPage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -14,7 +14,7 @@ const ProductEditPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<IMedicineData>({
     name: "",
     thumbnail: "",
     imagePreview: "",
